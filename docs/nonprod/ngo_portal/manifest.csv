@@ -23,3 +23,4 @@ date,focus,case_file,note_file
 2025-05-22,"Disbursement flow integration with async statuses",tests/nonprod/ngo_portal/cases/2025-05-22.json,docs/nonprod/ngo_portal/daily/2025-05-22.md
 2025-05-23,"Frontend tests for campaign and wallet flows",tests/nonprod/ngo_portal/cases/2025-05-23.json,docs/nonprod/ngo_portal/daily/2025-05-23.md
 2025-05-24,"UI fixes/refactor/perf cleanup",tests/nonprod/ngo_portal/cases/2025-05-24.json,docs/nonprod/ngo_portal/daily/2025-05-24.md
+2025-05-25,"NGO docs/config/changelog updates",tests/nonprod/ngo_portal/cases/2025-05-25.json,docs/nonprod/ngo_portal/daily/2025-05-25.md
