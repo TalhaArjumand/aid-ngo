@@ -34,3 +34,4 @@ date,focus,case_file,note_file
 2025-06-02,"NGO campaign UI flow connected to API",tests/nonprod/ngo_portal/cases/2025-06-02.json,docs/nonprod/ngo_portal/daily/2025-06-02.md
 2025-06-03,"Onboarding/auth forms with validation + error states",tests/nonprod/ngo_portal/cases/2025-06-03.json,docs/nonprod/ngo_portal/daily/2025-06-03.md
 2025-06-04,"Dashboard/reporting data mapping and filtering",tests/nonprod/ngo_portal/cases/2025-06-04.json,docs/nonprod/ngo_portal/daily/2025-06-04.md
+2025-06-05,"Disbursement flow integration with async statuses",tests/nonprod/ngo_portal/cases/2025-06-05.json,docs/nonprod/ngo_portal/daily/2025-06-05.md
