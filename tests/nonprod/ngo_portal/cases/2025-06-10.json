@@ -1,0 +1,11 @@
+{
+  "date": "2025-06-10",
+  "pair": "ngo+api",
+  "focus": "Onboarding/auth forms with validation + error states",
+  "repo": "aid-ngo",
+  "tasks": {
+    "validation": "schema and consistency checks for nonprod fixtures",
+    "sync": "ensure NGO/API alignment artifacts are present for this day",
+    "safety": "no runtime code updates"
+  }
+}
