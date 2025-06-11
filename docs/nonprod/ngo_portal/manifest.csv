@@ -40,3 +40,4 @@ date,focus,case_file,note_file
 2025-06-08,"NGO docs/config/changelog updates",tests/nonprod/ngo_portal/cases/2025-06-08.json,docs/nonprod/ngo_portal/daily/2025-06-08.md
 2025-06-09,"NGO campaign UI flow connected to API",tests/nonprod/ngo_portal/cases/2025-06-09.json,docs/nonprod/ngo_portal/daily/2025-06-09.md
 2025-06-10,"Onboarding/auth forms with validation + error states",tests/nonprod/ngo_portal/cases/2025-06-10.json,docs/nonprod/ngo_portal/daily/2025-06-10.md
+2025-06-11,"Dashboard/reporting data mapping and filtering",tests/nonprod/ngo_portal/cases/2025-06-11.json,docs/nonprod/ngo_portal/daily/2025-06-11.md
