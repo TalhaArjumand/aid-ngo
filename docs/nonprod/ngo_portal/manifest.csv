@@ -43,3 +43,4 @@ date,focus,case_file,note_file
 2025-06-11,"Dashboard/reporting data mapping and filtering",tests/nonprod/ngo_portal/cases/2025-06-11.json,docs/nonprod/ngo_portal/daily/2025-06-11.md
 2025-06-12,"Disbursement flow integration with async statuses",tests/nonprod/ngo_portal/cases/2025-06-12.json,docs/nonprod/ngo_portal/daily/2025-06-12.md
 2025-06-13,"Frontend tests for campaign and wallet flows",tests/nonprod/ngo_portal/cases/2025-06-13.json,docs/nonprod/ngo_portal/daily/2025-06-13.md
+2025-06-14,"UI fixes/refactor/perf cleanup",tests/nonprod/ngo_portal/cases/2025-06-14.json,docs/nonprod/ngo_portal/daily/2025-06-14.md
