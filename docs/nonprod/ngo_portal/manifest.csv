@@ -49,3 +49,4 @@ date,focus,case_file,note_file
 2025-06-17,"Onboarding/auth forms with validation + error states",tests/nonprod/ngo_portal/cases/2025-06-17.json,docs/nonprod/ngo_portal/daily/2025-06-17.md
 2025-06-18,"Dashboard/reporting data mapping and filtering",tests/nonprod/ngo_portal/cases/2025-06-18.json,docs/nonprod/ngo_portal/daily/2025-06-18.md
 2025-06-19,"Disbursement flow integration with async statuses",tests/nonprod/ngo_portal/cases/2025-06-19.json,docs/nonprod/ngo_portal/daily/2025-06-19.md
+2025-06-20,"Frontend tests for campaign and wallet flows",tests/nonprod/ngo_portal/cases/2025-06-20.json,docs/nonprod/ngo_portal/daily/2025-06-20.md
