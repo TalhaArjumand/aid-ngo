@@ -67,6 +67,11 @@ export default {
     "@nuxtjs/recaptcha",
   ],
 
+  // 👇 add this
+  env: {
+    NUXT_PUBLIC_PAYNOW_MODE: process.env.NUXT_PUBLIC_PAYNOW_MODE || 'dev',
+  },
+
   buildModules: ["@nuxtjs/eslint-module"],
 
   recaptcha: {

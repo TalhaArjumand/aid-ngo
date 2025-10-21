@@ -1,9 +1,13 @@
+<!-- 
+EMAIL VERIFICATION PAGE - COMMENTED OUT FOR DEVELOPMENT MODE
+Email verification is bypassed in development mode, so this page is not needed.
+
 <template>
   <div v-if="isVerified" class="main">
     <div class="text-center">
       <!-- Logo here -->
       <div class="logo-div pt-5">
-        <img src="~/assets/img/logo.svg" class="img-fluid" alt="Chats" />
+        <img src="~/static/apple-touch-icon.png" class="img-fluid" alt="Chats" />
       </div>
       <h3 class="text-white welcome pt-4">
         <span>Email address verified</span>
@@ -22,7 +26,7 @@
             Email verified successfully
           </p>
           <p class="text-center text-sm input-text poppins p-2">
-            Your email has been verified successfully, you’ll now be redirected
+            Your email has been verified successfully, you'll now be redirected
             to login shortly.
           </p>
         </section>
@@ -34,7 +38,37 @@
     <FullScreenLoader :loading="loading" />
   </div>
 </template>
+-->
 
+<!-- Simple redirect page for development mode -->
+<template>
+  <div class="main">
+    <div class="text-center">
+      <div class="logo-div pt-5">
+        <img src="~/static/apple-touch-icon.png" class="img-fluid" alt="Chats" />
+      </div>
+      <h3 class="text-white welcome pt-4">
+        <span>Development Mode</span>
+      </h3>
+    </div>
+
+    <div class="d-flex justify-content-center align-items-center pt-4">
+      <div class="card__holder">
+        <section class="mt-4">
+          <p class="primary-black font-medium sans text-center">
+            Email verification bypassed in development mode
+          </p>
+          <p class="text-center text-sm input-text poppins p-2">
+            You can login directly without email verification.
+            Redirecting to login page...
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!-- 
 <script>
 export default {
   name: "VerifyEmail",
@@ -65,6 +99,21 @@ export default {
         this.loading = false;
       }
     },
+  },
+};
+</script>
+-->
+
+<!-- Simple redirect script for development mode -->
+<script>
+export default {
+  name: "VerifyEmailDev",
+
+  mounted() {
+    // In development mode, just redirect to login after 2 seconds
+    setTimeout(() => {
+      this.$router.push({ path: "/", query: { nu: true } });
+    }, 2000);
   },
 };
 </script>

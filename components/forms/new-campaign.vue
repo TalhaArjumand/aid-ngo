@@ -374,7 +374,8 @@ export default {
     },
 
     campaignType() {
-      return this.activeCampaignForm === "items" ? "item" : "campaign";
+      // DB enum accepts only "campaign" and "cash-for-work"
+      return this.activeCampaignForm === "items" ? "cash-for-work" : "campaign";
     },
 
     states() {

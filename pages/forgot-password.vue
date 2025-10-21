@@ -3,7 +3,7 @@
     <div class="text-center">
       <!-- Logo here -->
       <div class="logo-div">
-        <img src="~/assets/img/logo.svg" class="img-fluid" alt="Chats" />
+        <img src="~/static/apple-touch-icon.png" class="img-fluid" alt="Chats" />
       </div>
 
       <h3 class="text-white welcome py-4">Password Recovery</h3>

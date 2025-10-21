@@ -90,22 +90,32 @@ export default {
   computed: {
     ...mapGetters("authentication", ["user"]),
 
-    totalDeposit() {
-      return `${this.$root.$options.filters.formatCurrency(
-        this.wallet.total_deposit
-      )}`;
+
+    
+   // show fiat balances when running in our dev funding mode
+   isDevPayNow() {
+     return process.env.NUXT_PUBLIC_PAYNOW_MODE === "dev";
+   },
+
+          totalDeposit() {
+          const v = this.isDevPayNow
+            ? (this.wallet?.MainWallet?.fiat_balance ?? 0) // fallback for dev
+            : (this.wallet?.total_deposit ?? 0);           // real deposits in prod
+          return `${this.$root.$options.filters.formatCurrency(v)}`;
+        },
+
+        expenses() {
+      const v = this.wallet?.spend_for_campaign ?? 0;
+      return `${this.$root.$options.filters.formatCurrency(v)}`;
     },
 
-    expenses() {
-      return `${this.$root.$options.filters.formatCurrency(
-        this.wallet.spend_for_campaign
-      )}`;
-    },
-
-    cashBalace() {
-      return `${this.$root.$options.filters.formatCurrency(
-        this.wallet && this.wallet.MainWallet && this.wallet.MainWallet.balance
-      )}`;
+        cashBalace() {
+      // in dev show fiat_balance; otherwise show on-chain token balance
+      const main = this.wallet?.MainWallet || {};
+      const v = this.isDevPayNow
+        ? (main.fiat_balance ?? main.balance ?? 0)
+        : (main.balance ?? 0);
+      return `${this.$root.$options.filters.formatCurrency(v)}`;
     },
   },
 
@@ -120,7 +130,7 @@ export default {
         this.loading = true;
 
         const response = await this.$axios.get(
-          `/organisations/${+this.orgId}/wallets`
+          `/organisations/${this.orgId}/wallets`
         );
 
         if (response.status === "success") {
@@ -134,10 +144,9 @@ export default {
       }
     },
 
-    reloadData() {
-      setTimeout(() => {
-        window.location.reload();
-      }, 300);
+        reloadData() {
+      // light refresh of wallet summary
+      this.getWallet();
     },
   },
 };

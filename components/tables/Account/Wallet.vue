@@ -179,6 +179,12 @@ export default {
     custom() {
       return "border-radius:5px !important; height: 41px; font-size: 0.875rem; ";
     },
+
+    
+   // Used to decide if we should skip opening Paystack in dev
+   isDevPayNow() {
+     return process.env.NUXT_PUBLIC_PAYNOW_MODE === "dev";
+   },
   },
 
   mounted() {
@@ -190,11 +196,28 @@ export default {
       this.orgId = this.user?.AssociatedOrganisations[0]?.Organisation.id;
     },
 
-    fundWithPaystack(data) {
-      this.depositData = data;
-      setTimeout(() => {
-        document.getElementById("paystackBtn").click();
-      }, 300);
+        fundWithPaystack(data) {
+      // save whatever backend returned (works for dev  real)
+      this.depositData = data || {};
+
+      // If we're in dev OR the gateway payload is missing,
+      // the backend already credited the wallet—just close & refresh.
+      const noGatewayPayload =
+        !this.depositData?.key || !this.depositData?.ref || !this.depositData?.email;
+
+      if (this.isDevPayNow || noGatewayPayload) {
+        this.$bvModal && this.$bvModal.hide("fund-amount");
+        this.$toast && this.$toast.success("Wallet funded (dev).");
+        this.getWallet(); // refresh the right panel  totals
+        return;
+      }
+
+      // Real gateway path (Paystack): trigger the hidden paystack button
+      this.$nextTick(() => {
+        const btn = document.getElementById("paystackBtn");
+        if (btn) btn.click();
+        else this.$toast && this.$toast.error("Payment initialisation failed.");
+      });
     },
 
     getWallet() {

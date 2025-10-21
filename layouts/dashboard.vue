@@ -15,7 +15,7 @@
               <div class="d-flex holder">
                 <template v-if="!user.is_verified">
                   <span class="primary-blue font-medium">
-                    To access all chats service, please complete your KYC
+                    To access all aidchain service, please complete your KYC
                     verification process
                   </span>
 

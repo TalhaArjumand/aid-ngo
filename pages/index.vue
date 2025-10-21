@@ -3,7 +3,7 @@
     <div class="text-center">
       <!-- Logo here -->
       <div class="logo-div">
-        <img src="~/assets/img/logo.svg" class="img-fluid" alt="Chats" />
+        <img src="~/static/apple-touch-icon.png" class="img-fluid" alt="AidChain" />
       </div>
       <h3 class="text-white welcome py-4">
         {{ is2fa ? "Two-factor authentication " : "Hi, welcome back" }}
@@ -66,7 +66,6 @@
             </div>
 
             <div class="mt-4 pt-2 text-center">
-              <recaptcha />
               <button :disabled="loading" class="onboarding-btn">
                 <span v-if="loading">
                   <img
@@ -150,10 +149,8 @@ export default {
           return (this.loading = false);
         }
 
-        const recaptchaToken = await this.$recaptcha.getResponse();
         const response = await this.$axios.post("/auth/ngo-login", {
           ...this.payload,
-          token: recaptchaToken,
         });
 
         console.log("login response", response);
@@ -176,7 +173,6 @@ export default {
       } finally {
         this.loading = false;
         localStorage.removeItem("protectedLastRoute");
-        this.$recaptcha.reset();
       }
     },
 

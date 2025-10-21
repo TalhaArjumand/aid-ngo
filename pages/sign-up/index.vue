@@ -3,11 +3,11 @@
     <div class="text-center">
       <!-- Logo here -->
       <div class="logo-div pt-5">
-        <img src="~/assets/img/logo.svg" class="img-fluid" alt="Chats" />
+        <img src="~/static/apple-touch-icon.png" class="img-fluid" alt="AidChain" />
       </div>
       <h3 class="text-white welcome pt-4">
-        <span v-if="!isEmailSent"> Welcome To CHATS</span>
-        <span v-else>Verify your email</span>
+        <span>Welcome To CHATS</span>
+        <!-- <span v-else>Verify your email</span> -->
       </h3>
     </div>
 
@@ -55,30 +55,29 @@
           </div>
         </div>
 
-        <!-- Email Sent region -->
+        <!-- EMAIL VERIFICATION SECTION COMMENTED OUT FOR DEVELOPMENT MODE -->
+        <!-- 
         <div v-else>
           <section class="d-flex justify-content-center">
             <img src="~/assets/img/svg/verify-email.svg" alt="verify-email" />
           </section>
 
-          <!-- Text here -->
           <section class="mt-4 pt-1">
             <p class="primary-black font-medium sans text-center">
-              You’ll need to verify your email to complete sign up
+              You'll need to verify your email to complete sign up
             </p>
             <p class="text-center text-sm input-text poppins">
               An email has been sent to
               <span class="font-medium">{{ payload.email }}</span> with a link
-              to verify your account. If you don’t receive it within a few
+              to verify your account. If you don't receive it within a few
               minutes, please check your spam folder.
             </p>
           </section>
 
-          <!-- footer region Here -->
           <section
             class="text-center poppins primary-black font-medium pt-3 pb-4"
           >
-            Didn’t get the mail?
+            Didn't get the mail?
             <span
               class="primary pointer"
               :class="{ isDisabled: loading }"
@@ -87,6 +86,7 @@
             >
           </section>
         </div>
+        -->
       </div>
     </div>
   </div>
@@ -149,34 +149,39 @@ export default {
       }
     },
 
-    async resendEmail() {
-      try {
-        if (this.loading) return;
-        this.loading = true;
+    // RESEND EMAIL METHOD COMMENTED OUT FOR DEVELOPMENT MODE
+    // async resendEmail() {
+    //   try {
+    //     if (this.loading) return;
+    //     this.loading = true;
 
-        const email = localStorage.getItem("userEmail");
+    //     const email = localStorage.getItem("userEmail");
 
-        const response = await this.$axios.post(
-          "auth/resend-email-confirmation",
-          {
-            email,
-            host_url: appConfig.HOST_URL,
-          }
-        );
+    //     const response = await this.$axios.post(
+    //       "auth/resend-email-confirmation",
+    //       {
+    //         email,
+    //         host_url: appConfig.HOST_URL,
+    //       }
+    //     );
 
-        if (response.status === "success") {
-          this.$toast.success("Email sent successfully");
-          this.updateRoute();
-        }
-      } catch (_err) {
-      } finally {
-        this.loading = false;
-      }
-    },
+    //     if (response.status === "success") {
+    //       this.$toast.success("Email sent successfully");
+    //       this.updateRoute();
+    //     }
+    //   } catch (_err) {
+    //   } finally {
+    //     this.loading = false;
+    //   }
+    // },
 
     updateRoute() {
-      this.isEmailSent = true;
-      this.$router.push({ path: "/sign-up", query: { isEmailSent: true } });
+      // DEVELOPMENT MODE: Skip email verification page, redirect to login
+      // this.isEmailSent = true;
+      // this.$router.push({ path: "/sign-up", query: { isEmailSent: true } });
+      
+      // Redirect to login page with success message
+      this.$router.push({ path: "/", query: { nu: true, message: "Account created successfully! You can now login." } });
     },
 
     handleClick(tab) {

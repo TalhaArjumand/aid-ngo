@@ -7,7 +7,7 @@
     <nav class="navbar">
       <div class="mx-1 logo-holder">
         <span class="navbar-brand" href="">
-          <img src="~/assets/img/logo-2.svg" alt="Chats" />
+          <img src="~/assets/img/logo.png" alt="AidChain" width="100" height= "100" />
         </span>
       </div>
 

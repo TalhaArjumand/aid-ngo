@@ -167,36 +167,61 @@ export default {
   }),
 
   async fetch() {
-    this.id = this.user?.AssociatedOrganisations[0]?.OrganisationId;
-    const campaignForms = await this.$axios.get(
+  this.id = this.user?.AssociatedOrganisations[0]?.OrganisationId;
+
+  // clear current lists so UI reflects fresh state
+  this.projects = [];
+  this.items = [];
+  this.forms = [];
+
+  const sec = this.section;
+
+  if (sec === "projects") {
+  // CASH projects only
+  const res = await this.$axios.get(
+    `/organisations/${this.id}/campaigns/all?type=campaign&page=${this.campaignPageNum}&size=10`
+  );
+
+  const payload = res?.data;
+
+  // Accept either {data: [...] } or [...] directly
+  this.projects = Array.isArray(payload) ? payload : (payload?.data ?? []);
+
+  // Pagination (if present)
+  this.campaignPageNum = payload?.currentPage ?? this.campaignPageNum;
+  this.campaignTotalItems =
+    payload?.totalItems ??
+    (Array.isArray(this.projects) ? this.projects.length : 0);
+
+  return;
+  }
+
+  if (sec === "items") {
+    // ITEM projects — backend currently rejects "item"; guard it so no toast/error
+    try {
+      const { data } = await this.$axios.get(
+        `/organisations/${this.id}/campaigns/all?type=item&page=${this.itemCampaignPageNum}&size=10`
+      );
+      this.items = data?.data || [];
+      this.itemCampaignPageNum = data?.currentPage || this.itemCampaignPageNum;
+      this.itemCampaignTotalItems = data?.totalItems || 0;
+    } catch (e) {
+      // Backend doesn't support enum 'item' in your DB; keep UI quiet
+      this.items = [];
+      this.itemCampaignTotalItems = 0;
+    }
+    return;
+  }
+
+  if (sec === "forms") {
+    const { data } = await this.$axios.get(
       `organisations/${this.id}/campaign_form?page=${this.formPageNum}&size=10`
     );
-
-    const campaigns = await this.$axios.get(
-      `/organisations/${this.id}/campaigns/all?type=campaign&page=${this.campaignPageNum}&size=10`
-    );
-
-    console.log("CAMPAIGNS:::", campaigns);
-
-    // fetch item campaign's response
-    const itemCampaigns = await this.$axios.get(
-      `/organisations/${this.id}/campaigns/all?type=item&page=${this.itemCampaignPageNum}&size=10`
-    );
-
-    this.forms = campaignForms.data;
-    this.projects = campaigns.data;
-    this.items = itemCampaigns.data;
-
-    // Pagination data here
-    this.campaignPageNum = campaigns?.currentPage || this.formPageNum;
-    this.campaignTotalItems = campaigns?.totalItems;
-
-    this.itemCampaignPageNum = itemCampaigns?.currentPage || this.formPageNum;
-    this.itemCampaignTotalItems = itemCampaigns?.totalItems;
-
-    this.formPageNum = campaignForms?.currentPage || this.formPageNum;
-    this.formTotalItems = campaignForms?.totalItems;
-  },
+    this.forms = data?.data || [];
+    this.formPageNum = data?.currentPage || this.formPageNum;
+    this.formTotalItems = data?.totalItems || 0;
+  }
+},
 
   computed: {
     ...mapGetters("authentication", ["user"]),
