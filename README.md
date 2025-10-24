@@ -1,93 +1,207 @@
-# CHATS - NGO DASHBOARD
 
-<a href="https://withconvexity.com">
-    <img width="200" src="./assets/img/logo-2.svg?width=64" alt="CHATS Logo" />
-</a>
+# 🌍 AidChain NGO Frontend (CHATS-NGO)
 
-## Description
+A modern **Nuxt 3** web application for NGOs to manage campaigns, onboard beneficiaries and vendors, and interact securely with the AidChain blockchain via the backend API.
 
-CHATS(Convexity Humanitarian Aid Transfer Solution), enables the transparent transfer of cash and voucher assistance to the beneficiaries while leveraging the blockchain technology for livelihood programs and logistics management for aid distribution.
+This app is part of the **AidChain ecosystem** — a full-stack humanitarian aid distribution platform built with **Hyperledger Besu**, **Node.js**, **RabbitMQ**, and **PostgreSQL**.
 
-<br>
+---
 
-## Technology Stack
+## 🚀 Project Overview
 
-- Nuxt.js (v2.14.6)
+AidChain empowers NGOs to transparently create, manage, and monitor aid campaigns while ensuring every token-based transaction is verifiable on-chain.
 
-<br>
+**Key Objectives**
+- 📦 Manage NGO profiles, campaigns, and beneficiaries  
+- 🧾 Track on-chain disbursements through blockchain integration  
+- 🔐 Ensure secure authentication via JWT tokens  
+- 🌐 Connect seamlessly to AidChain backend (API) and blockchain network  
 
-## Build Setup
+---
 
+## 🏗️ System Architecture
+
+┌────────────────────────────┐
+│  NGO Frontend (Nuxt 3)     │
+│  Tailwind + Pinia + Axios  │
+└────────────┬───────────────┘
+│ REST API Calls
+┌────────────▼───────────────┐
+│  AidChain Backend (Node.js)│
+│  Express + RabbitMQ + PGSQL│
+└────────────┬───────────────┘
+│ Blockchain Tx
+┌────────────▼───────────────┐
+│  AidChain Blockchain       │
+│  Hyperledger Besu + QBFT   │
+└────────────────────────────┘
+
+---
+
+## ⚙️ Tech Stack
+
+| Layer | Technology |
+|-------|-------------|
+| **Frontend Framework** | Nuxt 3 (Vue 3 Composition API) |
+| **UI Library** | Tailwind CSS + Element Plus |
+| **State Management** | Pinia |
+| **API Client** | Axios |
+| **Auth & Storage** | JWT + LocalStorage |
+| **Build Tool** | Vite |
+| **Language** | TypeScript (where supported) |
+
+---
+
+## 🧩 Directory Overview
+
+chats-ngo/
+├── pages/
+│   ├── admin/
+│   ├── campaigns/
+│   └── auth/
+├── store/
+│   ├── authentication.ts
+│   └── filters.ts
+├── components/
+│   ├── forms/
+│   ├── ui/
+│   └── tables/
+├── composables/
+│   └── useAPI.js
+├── assets/
+│   └── css/
+├── public/
+├── .env.development
+└── nuxt.config.ts
+
+---
+
+## 🧱 Environment Setup
+
+### 🔧 Prerequisites
+Ensure you have:
 ```bash
-# install dependencies
-$ npm install
+Node.js >= 18
+npm or yarn
 
-# serve with hot reload at localhost:3000
-$ npm run dev
 
-# build for production and launch server
-$ npm run build
-$ npm run start
+⸻
 
-# generate static project
-$ npm run generate
-```
+🔑 Environment Variables
 
-<br>
+Create .env.development at the project root:
 
-## Contribution Guide
+# API Base URL for AidChain Backend
+BASE_URL=http://localhost:3000/v1
 
-**Fork the Repository:** Start by forking our repository on GitHub. This will create a copy of the project under your GitHub account.
+# Application Port
+NUXT_PORT=3002
 
-**Set Up Your Development Environment:** Clone the forked repository to your local machine using Git. Install any necessary dependencies as specified in the project's documentation.
+# Optional: define API_TIMEOUT, LOG_LEVEL, etc.
 
-**Create a New Branch:** Create a new branch on your local machine.
 
-**Make Changes:** Implement your desired changes or additions to the codebase. Ensure that your code follows the project's coding conventions and style guidelines.
+⸻
 
-**Test Your Changes:** Before submitting your contribution, make sure to test your changes thoroughly. Use test frameworks (Mocha or QUnit) to automate the process. Once you have run the tests, you have to analyse the results. This will help you to identify any bugs or problems. If there are bugs, fix them before proceeding to commit your changes.
+🧰 Installation & Run
 
-**Commit and Push:** Commit your changes with clear and descriptive commit messages. Push your commits to the branch you created on your forked repository.
+# 1. Clone repository
+git clone https://github.com/TalhaArjumand/chats-ngo.git
+cd chats-ngo
 
-**Create a Pull Request (PR):** Go to the original repository on GitHub and locate the "Pull Requests" section. Click on "New pull request" to create a new pull request from your branch to the original repository's main branch. Provide a descriptive title and a detailed description of your changes in the pull request.
+# 2. Checkout working branch
+git checkout talha
 
-**Contribution Approval and Merging:** Once your pull request has been reviewed and approved by the project maintainers, it will be merged into the main branch. Congratulations! Your contribution is now part of the project.
+# 3. Install dependencies
+npm install
 
-Thank you for considering contributing to our open-source project on GitHub. Your contributions play a vital role in making the project successful and benefiting the CHATS community.
+# 4. Run in development mode
+npm run dev
 
-## Code of conduct
-The CHATS team and community are made up of a mixture of professionals from all over the world, working on every product. To that end, we have a few ground rules that we ask people to adhere to. This code applies equally to developers and users.
+# 5. (Optional) Build for production
+npm run build && npm run start
 
-As contributors and maintainers of CHATS, we are committed to providing a welcoming and inclusive environment for everyone, regardless of background or identity. This code of conduct applies to all spaces managed by the CHATS community. If you believe someone is violating the code of conduct, we ask that you report it by emailing us@chats.cash.
+App runs at → http://localhost:3002
 
-**Be respectful:** Treat all participants with respect and kindness, regardless of their personal attributes or opinions. Disagreements and debates should be conducted in a civil manner. Inclusive language: Use inclusive language and avoid any form of discriminatory, offensive, or derogatory remarks or jokes. Be mindful of your words' impact on others.
+⸻
 
-**Open-mindedness:** Embrace diversity and be open to different ideas, perspectives, and experiences. Foster an environment that encourages collaboration, creativity, and learning from one another.
+🔐 Authentication Flow
+	1.	Login → /auth/login
+	•	Uses backend endpoint /v1/auth/signInNGO
+	•	Receives JWT token
+	•	Stored in LocalStorage via useAuthStore
+	2.	Protected Routes
+	•	Middleware checks token validity before accessing /admin and /campaigns
+	3.	Logout
+	•	Clears token and redirects to login page
 
-**Be constructive:** Provide constructive feedback and engage in discussions that aim to improve the CHATS. Critique ideas, not individuals, and always assume good intentions from others. Respect privacy and boundaries: Obtain consent before sharing personal information about others. Respect the privacy and boundaries of fellow contributors and users.
+⸻
 
-**Report and address issues:** If you witness or experience any behavior that violates this code of conduct, promptly report it to the project maintainers. They are committed to maintaining a safe and inclusive community and will take appropriate action to address the issue.
+🌉 API Integration Example
 
-**No harassment or discrimination:** Harassment, discrimination, or any form of unwelcome behavior based on factors such as race, ethnicity, gender, sexual orientation, disability, religion, or any other protected characteristic will not be tolerated.
+All requests are centralized via a composable or Pinia action.
 
-**Comply with applicable laws:** Ensure that your actions and contributions comply with all applicable laws and regulations.
+// store/authentication.ts
+import { defineStore } from 'pinia'
+import axios from 'axios'
 
-By participating in the CHATS project, you agree to follow this code of conduct throughout all project activities, both online and offline, and in all interactions related to CHATS.
+export const useAuthStore = defineStore('auth', {
+  state: () => ({ token: '' }),
+  actions: {
+    async login(credentials) {
+      const { data } = await axios.post(`${import.meta.env.BASE_URL}/auth/signInNGO`, credentials)
+      this.token = data.token
+      localStorage.setItem('token', this.token)
+    }
+  }
+})
 
-## License
 
-CHATS `NGO DASHBOARD`
-Copyright (C) 2023 Convexity CVA Inc.
+⸻
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
+🧠 Developer Workflow
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
+# Create new feature branch
+git checkout -b feature/<branch-name>
 
-You should have received a copy of the GNU Affero General Public License
-along with this program. If not, see <https://www.gnu.org/licenses/>.
+# Add and commit
+git add .
+git commit -m "Implement new campaign dashboard"
+
+# Push to remote
+git push origin feature/<branch-name>
+
+
+⸻
+
+💾 Build & Deployment
+
+For production:
+
+npm run build
+npm run start
+
+Dockerization (optional):
+
+docker build -t aidchain-ngo .
+docker run -p 3002:3002 aidchain-ngo
+
+
+⸻
+
+🧭 Contribution Guidelines
+	•	Keep consistent naming for components and stores.
+	•	Don’t commit .env or private API URLs.
+	•	Test API integrations locally before merging.
+	•	Use ESLint & Prettier formatting.
+	•	Document all new pages/components.
+
+⸻
+
+💬 Credits
+
+Developed by Team AidChain
+Mentored under FAST-NUCES Blockchain Systems Lab
+
+“Transparency for NGOs begins with verifiable actions.”
+— AidChain NGO Frontend Team
+
